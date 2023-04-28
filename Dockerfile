@@ -77,7 +77,7 @@ RUN echo [supervisord] \
           stdout_logfile_maxbytes=0 \
           stderr_logfile=/dev/stderr \
           stderr_logfile_maxbytes=0 \
-    > supervisord.conf \
+    > supervisord.conf
 
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
