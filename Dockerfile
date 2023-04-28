@@ -58,8 +58,8 @@ RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
 COPY . .
 
-RUN if [-d /var/www/html/]; then echo "dir OK"; fi
-RUN if [-f /var/www/html/artisan]; then echo "file OK"; fi
+RUN if [ -d /var/www/html/ ]; then echo "dir OK"; fi
+RUN if [ -f /var/www/html/artisan ]; then echo "file OK"; fi
 
 
 COPY start-container /usr/local/bin/start-container
