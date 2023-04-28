@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 LABEL maintainer="Taylor Otwell"
 
+ARG PORT
 ARG WWWGROUP=1000
 ARG NODE_VERSION=18
 ARG POSTGRES_VERSION=15
@@ -9,6 +10,21 @@ ARG POSTGRES_VERSION=15
 RUN mkdir -p /var/www/html
 
 WORKDIR /var/www/html
+
+RUN echo [supervisord] \
+          nodaemon=true \
+          user=root \
+          logfile=/var/log/supervisor/supervisord.log \
+          pidfile=/var/run/supervisord.pid \
+          [program:php] \
+          command=/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan serve --host=0.0.0.0 --port=$PORT \
+          user=sail \
+          environment=LARAVEL_SAIL="1" \
+          stdout_logfile=/dev/stdout \
+          stdout_logfile_maxbytes=0 \
+          stderr_logfile=/dev/stderr \
+          stderr_logfile_maxbytes=0" \
+> supervisord.conf
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=UTC
