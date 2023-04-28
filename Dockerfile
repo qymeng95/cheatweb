@@ -13,7 +13,7 @@ WORKDIR /var/www/html
 
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV TZ=UTC+8
+ENV TZ=Asia/Shanghai
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
