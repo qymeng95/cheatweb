@@ -13,5 +13,5 @@ chmod -R ugo+rw /.composer
 if [ $# -gt 0 ]; then
     exec gosu $WWWUSER "$@"
 else
-    exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+    exec /usr/bin/php -d variables_order=EGPCS /var/www/html/artisan serve --host=0.0.0.0 --port=$PORT
 fi

@@ -11,20 +11,6 @@ RUN mkdir -p /var/www/html
 
 WORKDIR /var/www/html
 
-RUN echo [supervisord] \
-          nodaemon=true \
-          user=root \
-          logfile=/var/log/supervisor/supervisord.log \
-          pidfile=/var/run/supervisord.pid \
-          [program:php] \
-          command=/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan serve --host=0.0.0.0 --port=$PORT \
-          user=sail \
-          environment=LARAVEL_SAIL=1 \
-          stdout_logfile=/dev/stdout \
-          stdout_logfile_maxbytes=0 \
-          stderr_logfile=/dev/stderr \
-          stderr_logfile_maxbytes=0 \
-    > supervisord.conf
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=UTC
@@ -77,6 +63,21 @@ RUN composer install -o
 RUN if [ -d /var/www/html/vendor ]; then echo "dir OK"; fi
 RUN if [ -f /var/www/html/artisan ]; then echo "file OK"; fi
 
+
+RUN echo [supervisord] \
+          nodaemon=true \
+          user=root \
+          logfile=/var/log/supervisor/supervisord.log \
+          pidfile=/var/run/supervisord.pid \
+          [program:php] \
+          command=/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan serve --host=0.0.0.0 --port=$PORT \
+          user=sail \
+          environment=LARAVEL_SAIL=1 \
+          stdout_logfile=/dev/stdout \
+          stdout_logfile_maxbytes=0 \
+          stderr_logfile=/dev/stderr \
+          stderr_logfile_maxbytes=0 \
+    > supervisord.conf \
 
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
