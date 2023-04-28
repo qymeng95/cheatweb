@@ -6,6 +6,8 @@ ARG WWWGROUP=1000
 ARG NODE_VERSION=18
 ARG POSTGRES_VERSION=15
 
+RUN mkdir -p /var/www/html
+
 WORKDIR /var/www/html
 
 ENV DEBIAN_FRONTEND noninteractive
