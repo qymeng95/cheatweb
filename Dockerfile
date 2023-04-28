@@ -56,10 +56,8 @@ RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.2
 RUN groupadd --force -g $WWWGROUP sail
 RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
-RUN composer install -o
-
 COPY . .
-
+RUN composer install -o
 RUN if [ -d /var/www/html/vendor ]; then echo "dir OK"; fi
 RUN if [ -f /var/www/html/artisan ]; then echo "file OK"; fi
 
