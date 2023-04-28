@@ -58,6 +58,9 @@ RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
 COPY . .
 
+RUN if [-d /var/www/html/] echo "dir OK" if
+RUN if [-f /var/www/html/artisan] echo "file OK" if
+
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
