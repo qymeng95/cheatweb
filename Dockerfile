@@ -58,8 +58,9 @@ RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
 COPY . .
 
-RUN if [-d /var/www/html/] echo "dir OK" if
-RUN if [-f /var/www/html/artisan] echo "file OK" if
+RUN if [-d /var/www/html/]; then echo "dir OK"; fi
+RUN if [-f /var/www/html/artisan]; then echo "file OK"; fi
+
 
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
